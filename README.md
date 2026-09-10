@@ -1,6 +1,6 @@
 # Nicer ChatGPT
 
-A local Chrome extension that adds visible timestamps to ChatGPT messages and includes the current timestamp in prompts when you send them.
+Nicer ChatGPT adds small, privacy-first niceties that the default ChatGPT experience leaves out. It starts with visible timestamps and current time context in prompts.
 
 ## Install
 
@@ -43,6 +43,10 @@ Sent timestamps already embedded by this extension can be redisplayed. Exact ass
 Preferences use Chrome settings sync. Conversation IDs and timestamp records use local extension storage and do not sync. Message text is read only when you explicitly export the current conversation and is not retained separately.
 
 Uninstalling the extension clears its local assistant timestamp records. Embedded sent timestamps remain in the ChatGPT conversation.
+
+## License
+
+[MIT](LICENSE)
 
 ## Troubleshooting
 

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Nicer ChatGPT",
   "version": "1.0.0",
-  "description": "Adds persistent, time-aware timestamps to ChatGPT messages.",
+  "description": "Adds privacy-first niceties the default ChatGPT experience leaves out, starting with time-aware timestamps.",
   "permissions": ["storage"],
   "icons": {
     "16": "icons/icon-16.png",
