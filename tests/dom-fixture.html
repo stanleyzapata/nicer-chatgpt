@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles/content.css">
+</head>
+<body>
+  <main>
+    <article data-message-id="u1"><div data-message-author-role="user"><div class="whitespace-pre-wrap">Hello</div></div><form class="edit-form"><textarea>Revised message</textarea><button type="submit">Send edit</button></form></article>
+    <article data-message-id="a1"><div data-message-author-role="assistant"><div class="markdown">Hi there</div></div></article>
+  </main>
+  <form><div id="prompt-textarea" contenteditable="true">Draft</div><button data-testid="send-button" type="button">Send</button></form>
+  <script src="../src/namespace.js"></script>
+  <script src="../src/time.js"></script>
+  <script src="../src/marker.js"></script>
+  <script src="../src/messages.js"></script>
+  <script src="../src/chatgpt-adapter.js"></script>
+  <script src="../src/presenter.js"></script>
+</body>
+</html>

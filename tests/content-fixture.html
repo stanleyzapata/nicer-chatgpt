@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles/content.css">
+</head>
+<body>
+  <main>
+    <article data-message-id="u-existing">
+      <div data-message-author-role="user"><div class="whitespace-pre-wrap"><p>Existing message</p><p>[Sent: Sep 10, 2026, 3:42:18 PM AST; timezone: America/Santo_Domingo]</p></div></div>
+      <form id="edit-form"><textarea>Revised message
+
+[Sent: Sep 10, 2026, 3:42:18 PM AST; timezone: America/Santo_Domingo]</textarea><button type="submit">Send edit</button></form>
+    </article>
+    <article data-message-id="a-existing"><div data-message-author-role="assistant"><div class="markdown">Existing response</div></div></article>
+  </main>
+  <form id="main-form"><div id="prompt-textarea" contenteditable="true">New message</div><button data-testid="send-button" type="button">Send</button></form>
+  <script>
+    (() => {
+      const syncData = {};
+      const localData = {};
+      const storageListeners = [];
+      const area = (data) => ({
+        async get(key) { return typeof key === 'string' ? { [key]: data[key] } : { ...data }; },
+        async set(value) { Object.assign(data, value); },
+        async remove(key) { delete data[key]; }
+      });
+      globalThis.chrome = {
+        storage: { sync: area(syncData), local: area(localData), onChanged: { addListener(listener) { storageListeners.push(listener); } } },
+        runtime: { onMessage: { addListener() {} } }
+      };
+      globalThis.__setTimestampSettings = async (patch) => {
+        syncData.settings = { schemaVersion: 1, enabled: true, includeInPrompts: true, displayZoneMode: 'current', customZone: '', format: 'auto', ...(syncData.settings || {}), ...patch };
+        for (const listener of storageListeners) listener({ settings: { newValue: syncData.settings } }, 'sync');
+      };
+      for (const form of document.querySelectorAll('form')) form.addEventListener('submit', (event) => event.preventDefault());
+      for (const button of document.querySelectorAll('button')) button.addEventListener('click', (event) => {
+        event.preventDefault();
+        button.dataset.nativeSends = String(Number(button.dataset.nativeSends || 0) + 1);
+        const field = button.closest('form').querySelector('textarea,[contenteditable="true"]');
+        button.dataset.sentText = 'value' in field ? field.value : field.innerText;
+      });
+    })();
+  </script>
+  <script src="../src/namespace.js"></script>
+  <script src="../src/time.js"></script>
+  <script src="../src/marker.js"></script>
+  <script src="../src/storage.js"></script>
+  <script src="../src/submission.js"></script>
+  <script src="../src/compatibility.js"></script>
+  <script src="../src/export.js"></script>
+  <script src="../src/messages.js"></script>
+  <script src="../src/chatgpt-adapter.js"></script>
+  <script src="../src/presenter.js"></script>
+  <script src="../src/content.js"></script>
+</body>
+</html>

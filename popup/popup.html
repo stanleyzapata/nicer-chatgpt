@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nicer ChatGPT</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header><div><h1>Message timestamps</h1><p>Quiet context for every conversation.</p></div></header>
+    <div id="status" class="status checking" aria-live="polite">Checking this page…</div>
+    <button id="copyDiagnostics" class="diagnostics" type="button" hidden>Copy diagnostics</button>
+    <section class="preview" aria-label="Timestamp preview"><span>Preview</span><time id="preview"></time></section>
+
+    <section class="settings" aria-label="Settings">
+      <label class="row"><span><strong>Show timestamps</strong><small>Always visible below each message</small></span><input id="enabled" type="checkbox"></label>
+      <label class="row"><span><strong>Add timestamp to prompts</strong><small>Appends the current date and time to each message, giving ChatGPT time context.</small></span><input id="includeInPrompts" type="checkbox"></label>
+      <label class="row"><span><strong>Display timezone</strong><small id="zoneDetail">Shows every message in your current timezone and updates when your device timezone changes.</small></span><select id="displayZoneMode"><option value="current">Current timezone</option><option value="original">Message timezone</option><option value="utc">UTC</option><option value="custom">Custom timezone…</option></select></label>
+      <label id="customZoneRow" class="row nested" hidden><span><strong>Choose timezone</strong><small>Search by city or region</small></span><input id="customZone" list="timezones" autocomplete="off"><datalist id="timezones"></datalist></label>
+      <p class="settings-note">This choice also controls timestamps included in new prompts.</p>
+      <label class="row"><span><strong>Time format</strong><small>Date, seconds, and zone stay visible</small></span><select id="format"><option value="auto">Automatic</option><option value="12">12-hour</option><option value="24">24-hour</option><option value="iso">ISO 8601</option></select></label>
+    </section>
+
+    <section class="export" aria-label="Export conversation">
+      <div><strong>Export conversation</strong><small>Generated privately on this device</small></div>
+      <div><button id="exportMarkdown" type="button">Markdown</button><button id="exportJson" type="button">JSON</button></div>
+    </section>
+    <p id="notice" class="notice" aria-live="polite"></p>
+    <footer>Settings sync with Chrome. Conversation timestamps stay on this device unless exported.</footer>
+  </main>
+  <script src="../src/namespace.js"></script>
+  <script src="../src/time.js"></script>
+  <script src="../src/storage.js"></script>
+  <script src="../src/export.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
