@@ -4,12 +4,30 @@ Nicer ChatGPT adds small, privacy-first niceties that the default ChatGPT experi
 
 ## Install
 
-1. Unzip the package if needed.
-2. Open `chrome://extensions` in Chrome.
-3. Turn on Developer mode.
-4. Select Load unpacked.
-5. Choose the `nicer-chatgpt` folder.
-6. Open or reload `https://chatgpt.com`.
+1. Download the latest `nicer-chatgpt-<version>.zip` from [Releases](https://github.com/stanleyzapata/nicer-chatgpt/releases).
+2. Unzip the package.
+3. Open `chrome://extensions` in Chrome.
+4. Turn on Developer mode.
+5. Select Load unpacked.
+6. Choose the unzipped folder.
+7. Open or reload `https://chatgpt.com`.
+
+## Update
+
+GitHub ZIP installations do not update themselves. Download and unzip a newer release, replace the contents of the folder you originally selected in Chrome, then select Reload for Nicer ChatGPT at `chrome://extensions`. The popup shows the installed version.
+
+## Creating a release
+
+```bash
+npm run bump -- patch
+npm test
+git add manifest.json package.json
+git commit -m "Release v1.0.1"
+git tag v1.0.1
+git push origin main --tags
+```
+
+Use `minor` or `major` instead of `patch` when appropriate. Pushing the matching `v<version>` tag runs the release workflow, which tests the extension and attaches `nicer-chatgpt-<version>.zip` to the GitHub Release.
 
 ## What it does
 

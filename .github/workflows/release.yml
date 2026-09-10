@@ -1,0 +1,27 @@
+name: Release extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm test
+      - name: Verify release version
+        run: |
+          node -e 'const tag = process.env.GITHUB_REF_NAME.slice(1); const manifest = require("./manifest.json").version; const packageVersion = require("./package.json").version; if (!/^\d+\.\d+\.\d+$/.test(tag) || tag !== manifest || tag !== packageVersion) throw new Error(`Tag ${tag}, manifest ${manifest}, and package ${packageVersion} must match.`);'
+      - run: npm run package
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "dist/nicer-chatgpt-${GITHUB_REF_NAME#v}.zip" --generate-notes

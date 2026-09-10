@@ -1,7 +1,10 @@
 {
   "name": "nicer-chatgpt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "bump": "node scripts/bump-version.js",
+    "package": "node scripts/package-extension.js"
   }
 }

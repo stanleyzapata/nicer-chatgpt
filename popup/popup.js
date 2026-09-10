@@ -1,7 +1,7 @@
 (async function startPopup(root) {
   const TS = root.ChatGPTTimestamps;
   const store = TS.storage.fromChrome();
-  const elements = Object.fromEntries(['enabled','includeInPrompts','displayZoneMode','customZone','customZoneRow','format','preview','status','zoneDetail','notice','exportMarkdown','exportJson','copyDiagnostics'].map((id) => [id, document.getElementById(id)]));
+  const elements = Object.fromEntries(['enabled','includeInPrompts','displayZoneMode','customZone','customZoneRow','format','preview','status','zoneDetail','notice','exportMarkdown','exportJson','copyDiagnostics','extensionVersion'].map((id) => [id, document.getElementById(id)]));
   let settings = await store.getSettings();
   let activeTab;
   let lastStatus;
@@ -20,6 +20,7 @@
     elements.displayZoneMode.value = settings.displayZoneMode;
     elements.customZone.value = settings.customZone;
     elements.format.value = settings.format;
+    elements.extensionVersion.textContent = `Version ${chrome.runtime.getManifest().version}`;
     renderPreview();
   }
 

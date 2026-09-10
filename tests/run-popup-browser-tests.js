@@ -31,6 +31,7 @@ const path = require('node:path');
   });
   await page.goto(`file://${path.resolve(__dirname, '..', 'popup', 'popup.html')}`);
   await page.getByText('Working with this conversation.').waitFor();
+  if (!(await page.getByText('Version 1.0.0', { exact: true }).isVisible())) throw new Error('Installed extension version is not visible');
   if (!(await page.getByText('Display timezone', { exact: true }).isVisible())) throw new Error('Display timezone label is missing');
   const timezoneOptions = await page.locator('#displayZoneMode option').allTextContents();
   for (const option of ['Current timezone', 'Message timezone', 'UTC', 'Custom timezone…']) {

@@ -7,7 +7,9 @@ const root = path.resolve(__dirname, '..');
 
 test('manifest is MV3, narrowly scoped, and references existing local files', () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
+  const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   assert.equal(manifest.manifest_version, 3);
+  assert.equal(packageJson.version, manifest.version, 'release source versions must match');
   assert.equal(manifest.name, 'Nicer ChatGPT');
   assert.equal(manifest.action.default_title, 'Nicer ChatGPT');
   assert.deepEqual(manifest.permissions, ['storage']);
